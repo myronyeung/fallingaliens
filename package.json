@@ -1,0 +1,19 @@
+{
+  "name": "fallingaliens",
+  "version": "1.0.0",
+  "description": "80's inspired implementation of a falling dot game take-home exercise for Design Technologist role.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "falling",
+    "aliens"
+  ],
+  "author": "Myron Yeung",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

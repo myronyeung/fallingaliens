@@ -1,0 +1,294 @@
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/fonts/PressStart2P.ttf") format("truetype");
+}
+body, h1, h2, h3, h4 {
+  margin: 0;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  line-height: 1.25em;
+  color: white;
+  text-transform: uppercase;
+  background-color: black;
+}
+.hidden {
+  position: absolute;
+  top: auto;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+#game {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+}
+header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+  border-bottom: 1px solid orange;
+  padding: 1em;
+  width: 100%;
+  height: 100px;
+  background-color: black;
+}
+#scoreboard, #play-button, #speed-control {
+  box-sizing: border-box;
+  margin: 0;
+}
+#scoreboard {
+  text-align: left;
+  grid-row: row;
+}
+#play-button {
+  text-align: center;
+  color: #6CC417;
+  grid-row: row 2;
+  grid-column: span 2;
+}
+#speed-control {
+  text-align: right;
+  white-space: nowrap;
+  grid-row: row;
+  width: 100%;
+}
+#speed-control label {
+  vertical-align: top;
+}
+#scoreboard dl {
+  margin: 0;
+}
+#scoreboard dt, #scoreboard dd {
+  display: inline;
+  margin: 0;
+}
+#play-button:hover, #start-screen-start:hover {
+  color: orange;
+  cursor: pointer;
+}
+#play-button::before, #play-button::after,
+#start-screen-start::before, #start-screen-start::after {
+  content: "_";
+  opacity: 0;
+}
+#play-button:hover::before, #start-screen-start:hover::before {
+  content: ">";
+  opacity: 1;
+}
+#play-button:hover::after, #start-screen-start:hover::after {
+  content: "<";
+  opacity: 1;
+}
+#start-screen-start {
+  color: #6CC417;
+}
+#game-window {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 85%;
+  overflow: hidden;
+  background-image: url("/images/berlin-skyline.png");
+  background-position-x: center;
+  background-position-y: bottom;
+  background-repeat: repeat no-repeat;
+  background-color: black;
+}
+.dot {
+  position: absolute;
+  box-sizing: border-box; 
+  border: 1px solid black;
+  background-color: #222;
+  cursor: crosshair;
+}
+.dot .points {
+  display: none;
+  position: relative;
+  text-align: center;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+.clicked {
+  animation-duration: 1s; /* default: 0s */
+  animation-timing-function: linear; /* default: ease */
+  animation-delay: 0s; /* default */
+  animation-iteration-count: 1; /* default */
+  animation-direction: normal; /* default */
+  animation-fill-mode: forwards; /* default: none; */
+  animation-play-state: running; /* default */
+  animation-name: disappearing;
+}
+@keyframes disappearing {
+  to {
+    opacity: 0;
+  }
+}
+.dot.clicked .points {
+  display: block;
+}
+/* Remove alien, so player can see points earned */
+.clicked .space-invader {
+  display: none;
+}
+
+/* For tiny screens, stack the score and controls */
+@media all and (min-width: 0px) and (max-width: 359px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 8px;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: baseline;
+    padding: 12px;
+  }
+  #scoreboard, #speed-control {
+    margin-left: 1em; /* To align with "Play/Start/Pause" */
+  }
+  #speed-control {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+  }
+  #speed-control label {
+    margin-right: 10px;
+  }
+}
+/* For other screens, inline the score and controls */
+@media all and (min-width: 360px) and (max-width: 479px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 8px;
+  }
+}
+@media all and (min-width: 360px) and (max-width: 479px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 10px;
+  }
+}
+@media all and (min-width: 480px) and (max-width: 639px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 14px;
+  }
+}
+@media all and (min-width: 640px) and (max-width: 759px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 18px;
+  }
+}
+@media all and (min-width: 760px) {
+  body, h1, h2, h3, h4, small {
+    font-size: 24px;
+  }
+}
+
+/* Adapted from http://www.tauntaunwonton.com/blog/2014/10/2/playing-with-css-animations */
+.space-invader {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  animation-name: INVADE;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes INVADE {
+  0%, 100% { 
+    box-shadow:
+    0 0 0 1px #6CC417,
+    0 1px 0 1px #6CC417,
+    -2.5px 1.5px 0 .5px #6CC417,
+    2.5px 1.5px 0 .5px #6CC417,
+    -3px -3px 0 0 #6CC417,
+    3px -3px 0 0 #6CC417,
+    -2px -2px 0 0 #6CC417,
+    2px -2px 0 0 #6CC417,
+    -3px -1px 0 0 #6CC417,
+    -2px -1px 0 0 #6CC417,
+    2px -1px 0 0 #6CC417,
+    3px -1px 0 0 #6CC417,
+    -4px 0 0 0 #6CC417,
+    -3px 0 0 0 #6CC417,
+    3px 0 0 0 #6CC417,
+    4px 0 0 0 #6CC417,
+    -5px 1px 0 0 #6CC417,
+    -4px 1px 0 0 #6CC417,
+    4px 1px 0 0 #6CC417,
+    5px 1px 0 0 #6CC417,
+    -5px 2px 0 0 #6CC417,
+    5px 2px 0 0 #6CC417,
+    -5px 3px 0 0 #6CC417,
+    -3px 3px 0 0 #6CC417,
+    3px 3px 0 0 #6CC417,
+    5px 3px 0 0 #6CC417,
+    -2px 4px 0 0 #6CC417,
+    -1px 4px 0 0 #6CC417,
+    1px 4px 0 0 #6CC417,
+    2px 4px 0 0 #6CC417; 
+  }
+  50% { 
+    box-shadow:
+    0 0 0 1px #6CC417,
+    0 1px 0 1px #6CC417,
+    -2.5px 1.5px 0 .5px #6CC417,
+    2.5px 1.5px 0 .5px #6CC417,
+    -3px -3px 0 0 #6CC417,
+    3px -3px 0 0 #6CC417,
+    -2px -2px 0 0 #6CC417,
+    2px -2px 0 0 #6CC417,
+    -3px -1px 0 0 #6CC417,
+    -2px -1px 0 0 #6CC417,
+    2px -1px 0 0 #6CC417,
+    3px -1px 0 0 #6CC417,
+    -4px 0 0 0 #6CC417,
+    -3px 0 0 0 #6CC417,
+    3px 0 0 0 #6CC417,
+    4px 0 0 0 #6CC417,
+    -5px -1px 0 0 #6CC417,
+    -4px 1px 0 0 #6CC417,
+    4px 1px 0 0 #6CC417,
+    5px 0 0 0 #6CC417,
+    -5px 0 0 0 #6CC417,
+    5px -1px 0 0 #6CC417,
+    -5px -2px 0 0 #6CC417,
+    -3px 3px 0 0 #6CC417,
+    3px 3px 0 0 #6CC417,
+    5px -2px 0 0 #6CC417,
+    -4px 4px 0 0 #6CC417,
+    -4px 4px 0 0 #6CC417,
+    4px 4px 0 0 #6CC417,
+    4px 4px 0 0 #6CC417;
+  }
+}
+
+article {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 1.5em 1em 1em 1em;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: black;
+  text-align: center;
+}
+article h2, article h3 {
+  margin: 1em 0;
+}
+article h2 {
+  color: orange;
+}
+footer {
+  margin-top: 2em;
+}

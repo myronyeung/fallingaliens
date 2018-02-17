@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Falling Aliens</title>
+  <link rel="stylesheet" href="/css/styles.css"></link>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<body>
+  <div id="game">
+    <header>
+      <h1 class="accessibility hidden">Falling Aliens</h1>
+      <h2 id="scoreboard">
+        <dl>
+          <dt>Score</dt>
+          <dd id="score">0</dd>
+        </dl>
+      </h2>
+
+      <div id="speed-control">
+        <label for="speed-slider">Speed</label>
+        <input type="range" id="speed-slider" min="10" max="100" list="tickmarks" />
+      </div>
+
+      <datalist id="tickmarks">
+        <option value="10" label="10"></option>
+        <option value="20"></option>
+        <option value="30"></option>
+        <option value="40"></option>
+        <option value="50" label="50"></option>
+        <option value="60"></option>
+        <option value="70"></option>
+        <option value="80"></option>
+        <option value="90"></option>
+        <option value="100" label="100"></option>
+      </datalist>
+
+      <div id="play-button">Start</div>
+    </header>
+    <div id="game-window">
+      <article id="start-screen">
+        <h2>Welcome to Falling Aliens</h2>
+        <p>Save your fair city from the ruthless alien onslaught!</p>
+        <p>Click on aliens before they land on the ground. Press pause if you need a break. Use slider to slow or speed up the alien attack.</p>
+        <p id="start-screen-start">Press start</p>
+        <footer>
+          <small>&copy; 2018 Myron Yeung</small>
+        </footer>
+      </article>
+      <article id="pause-screen" class="hidden">
+        <h3>Game paused</h3>
+        <p>Press Play when you are ready to resume the battle.</p>
+      </article>
+      <noscript>Please turn on Javascript to enjoy the game!</noscript>
+    </div>
+  </div>
+
+  <script src="/js/game.js"></script>
+
+</body>
+</html>
